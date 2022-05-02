@@ -5,6 +5,15 @@ import math
 from typing import List
 from unittest import result
 
+def index_range(self,page: int, page_size: int) -> tuple:
+        """returns a tuple of size two containing and an end index
+        corresponding to the range of indexes to return in a list for those particular
+        pagination parameters
+        """
+        startIndex = (page - 1) * page_size
+        endIndex = startIndex + page_size
+        return (startIndex, endIndex)
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -21,27 +30,20 @@ class Server:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
+            
         return self.__dataset
-
-    def index_range(self,page: int, page_size: int) -> tuple:
-        """returns a tuple of size two containing and an end index
-        corresponding to the range of indexes to return in a list for those particular
-        pagination parameters
-        """
-        startIndex = (page - 1) * page_size
-        endIndex = startIndex + page_size
-        return (startIndex, endIndex)
-
+    
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """ get appropriate page of dataset"""
-        assert page > 0 or page_size > 0
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
         # deconstructing
-        start, end = self.index_range(page, page_size)
+        start, end = index_range(page, page_size)
         
         getData = self.dataset()
 
         result = []
-        
+
         if start >= len(getData):
             return result
         return getData[start:end]
