@@ -30,7 +30,7 @@ class Server:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
-            
+
         return self.__dataset
     
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
@@ -38,7 +38,7 @@ class Server:
         assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
         # deconstructing
-        start, end = index_range(page, page_size)
+        start, end = index_range(self, page , page_size)
         
         getData = self.dataset()
 
@@ -46,5 +46,6 @@ class Server:
 
         if start >= len(getData):
             return result
-        return getData[start:end]
+        else:
+            return getData[start:end]
 
