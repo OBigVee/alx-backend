@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
-
 """Basic Dict"""
-
 
 baseCaching = __import__("base_caching").BaseCaching
 
 
 class BasicCache(baseCaching):
     """inherits from BaseCaching"""
-
     def __init__(self):
         """initialize"""
         super().__init__()
