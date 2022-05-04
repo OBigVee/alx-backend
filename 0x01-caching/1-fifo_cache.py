@@ -12,6 +12,7 @@ class FIFOCache(baseCaching):
     def __init__(self):
         """initialize"""
         super().__init__()
+        # preserve the order in which keys are inserted
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
