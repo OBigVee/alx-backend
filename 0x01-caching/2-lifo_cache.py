@@ -19,7 +19,9 @@ class LIFOCache(baseCaching):
         if key is None or item is None:
             return
         if key not in self.cache_data:
-            if len(self.cache_data.values()) > baseCaching.MAX_ITEMS:
+            if len(self.cache_data.values()) + 1 > baseCaching.MAX_ITEMS:
+                # print(f"len = {len(self.cache_data.values()) + 1}")
+                # print(f"MAX: {baseCaching.MAX_ITEMS}")
                 """discard the first item put in cache (LIFO)"""
                 last_key, last_item = self.cache_data.popitem(True)
                 print("DISCARD: {}".format(last_key))
