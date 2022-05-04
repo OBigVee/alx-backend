@@ -22,7 +22,7 @@ class LIFOCache(baseCaching):
             if len(self.cache_data.values()) + 1 > baseCaching.MAX_ITEMS:
                 # print(f"len = {len(self.cache_data.values()) + 1}")
                 # print(f"MAX: {baseCaching.MAX_ITEMS}")
-                """discard the first item put in cache (LIFO)"""
+                """discard the last item put in cache (LIFO)"""
                 last_key, last_item = self.cache_data.popitem(True)
                 print("DISCARD: {}".format(last_key))
         # add a new key with item
