@@ -13,7 +13,6 @@ class LRUCache(baseCaching):
         """initialize"""
         super().__init__()
         self.cache_data = OrderedDict()
-        self.track_used_key = {}
 
     def put(self, key, item):
         """Add an item in the cache"""
