@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Simple pagination"""
+
+
 import csv
 import math
-from typing import List
+from typing import Dict, List
 
 
 def index_range(self, page: int, page_size: int) -> tuple:
@@ -43,7 +45,14 @@ class Server:
 
         result = []
 
-        if start >= len(getData):
-            return result
-        else:
-            return getData[start:end]
+        return getData[start:end] if start < len(getData) else result
+        # if start >= len(getData):
+        #     return result
+        # else:
+        #     return getData[start:end]
+
+
+    # def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+    #     """returns a dic containing the key-value pairs"""
+    #     data = self.dataset()
+    #     next_page = 
