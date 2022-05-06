@@ -1,47 +1,66 @@
 #!/usr/bin/env python3
-""" Deletion-resilient hypermedia pagination"""
-
+"""Deletion-resilient hypermedia pagination
+"""
 import csv
-import math
-from typing import List, Dict
+from typing import Dict, List
+
 
 class Server:
-    """ """
+    """Server class to paginate a database of popular baby names.
+    """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """Initializes a new Server instance.
+        """
         self.__dataset = None
         self.__indexed_dataset = None
-    
-    def datasets(self) -> List[List]:
-        """Cached dataset"""
+
+    def dataset(self) -> List[List]:
+        """Cached dataset
+        """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
 
+        return self.__dataset
+
     def indexed_dataset(self) -> Dict[int, List]:
-        """Dataset indexed by sorting position, starting at 0"""
+        """Dataset indexed by sorting position, starting at 0
+        """
         if self.__indexed_dataset is None:
-            dataset = self.datasets()
+            dataset = self.dataset()
             truncated_dataset = dataset[:1000]
             self.__indexed_dataset = {
-                i : dataset[i] for i in range(len(dataset))
+                i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
     
-    def get_hyper_index(self,index: int = None, page_size: int = 10) -> Dict:
-        """returns a dict with key-value pairs"""
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """returns a dict with key-value pairs
+            """
         resultDict = {}
-        index = self.indexed_dataset()
-        next_index = index + 1
-        page_size = page_size
-        data = self.__dataset() 
-        
-        resultDict["data"] = data
+        resultList = []
+        track_page = 0
+        next_index = None
+        data = self.indexed_dataset()
+        assert index < max(data.keys())
+        start = index if index else 0
+        for key, val in data.items():
+            if key >= start and track_page < page_size:
+                resultList.append(val)
+                track_page += 1
+                continue
+            if track_page == page_size:
+                next_index = key
+                break    
+             
+      
+        resultDict["data"] = resultList
         resultDict["index"] = index
         resultDict["next_index"] = next_index
-        resultDict["page_size"] = page_size
-
+        resultDict["page_size"] = len(resultList)
         return resultDict
+
