@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """Replicate get_page method in '1-simple_pagination.py' """
-
-
 import csv
-import math
 from typing import Dict, List
 
 
@@ -45,11 +42,7 @@ class Server:
         getData = self.dataset()
 
         result = []
-
-        if start >= len(getData):
-            return result
-        else:
-            return getData[start:end]
+        return getData[start:end] if start < len(getData) else result
 
     def get_hyper(self, page: int = 1, page_size: int = 10):
         """return dictionary contating key-value pairs"""
