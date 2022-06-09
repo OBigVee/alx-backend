@@ -1,4 +1,4 @@
-import { createClient } from 'redis'
+import { createClient,print } from 'redis'
 
 const client = createClient()
 
@@ -11,12 +11,12 @@ client.on('connect', () => {
 })
 
 const setNewSchool = (schoolName, value) => {
-  client.set(schoolName, value)
+  client.set(schoolName, value,print)
 }
 
 const displaySchoolValue = (schoolName) => {
-  client.get(schoolName, (_err, reply) => {
-    console.log(reply)
+  client.get(schoolName, (error, rep) => {
+    console.log(rep)
   })
 }
 
