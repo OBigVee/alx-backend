@@ -1,5 +1,5 @@
 # Queuing System in JS
-![image](/img/meme.png)
+![image](img/meme.png)
 
 ## Resources
 **Read or watch:**
