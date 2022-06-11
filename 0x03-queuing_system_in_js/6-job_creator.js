@@ -11,7 +11,7 @@ objJob
     if(!err) console.log(`Notification job created: ${job.id}`)
 })
 
-job.on('compelte', ()=>{
+job.on('complete', ()=>{
     console.log('Notification job completed')
 }).on('failed', (errorMessage)=>{
     console.log('Notification job failed')
