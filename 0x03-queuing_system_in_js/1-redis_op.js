@@ -1,4 +1,4 @@
-import { createClient,print } from 'redis'
+import { createClient, print } from 'redis'
 
 const client = createClient()
 
@@ -11,7 +11,7 @@ client.on('connect', () => {
 })
 
 const setNewSchool = (schoolName, value) => {
-  client.set(schoolName, value,print)
+  client.set(schoolName, value, print)
 }
 
 const displaySchoolValue = (schoolName) => {
