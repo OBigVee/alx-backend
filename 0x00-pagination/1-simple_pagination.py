@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import csv
-import math
 from typing import List, Tuple
 
 
@@ -38,11 +37,8 @@ class Server:
         if the input args are out of range for the dataset,return an empty
         list
         """
-
         assert type(page) is int and type(page_size) is int
         assert page > 0 and page_size > 0
-
-        # unpacking
         start, end = index_range(self, page, page_size)
         get_data = self.dataset()
         result: List = []
