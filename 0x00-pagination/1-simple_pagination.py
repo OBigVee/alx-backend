@@ -34,7 +34,10 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """method takes two int args"""
+        """method takes two int args
+        if the input args are out of range for the dataset,return an empty
+        list
+        """
 
         assert type(page) is int and type(page_size) is int
         assert page > 0 and page_size > 0
@@ -43,6 +46,4 @@ class Server:
         start, end = index_range(self, page, page_size)
         get_data = self.dataset()
         result: List = []
-        # if the input args are out of range for the dataset,return an empty
-        # list
         return get_data[start:end] if start < len(get_data) else result
