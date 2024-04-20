@@ -2,33 +2,37 @@
 """Basic Babel Setup"""
 
 from flask import Flask, render_template, request
-from flask_babel import Babel, __
-
-app = Flask(__name__)
+from flask_babel import Babel
 
 
 class Config(object):
+    """_summary_
+
+    Returns:
+            _type_: _description_
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
+app = Flask(__name__)
+
 app.config.from_object(Config)
 babel = Babel(app)
 
 
-@babel.localeselector
-def get_locale():
-    """Get the locale from request or default to config"""
-    return request.accept_languages.best_match(app.config["LANGUAGES"])
+# @babel.localeselector
+# def get_locale():
+#     """Get the locale from request or default to config"""
+#     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
 @app.route("/")
 def index():
     """Render the index template with translated text."""
-    text = _("Hello, World!")
-    return render_template("index.html", title=text)
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port="5000", host="0.0.0.0", debug=True)
