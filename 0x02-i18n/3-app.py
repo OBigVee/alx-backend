@@ -13,9 +13,10 @@ class Config(object):
     Returns:
             _type_: _description_
     """
-    LANGUAGES = ['en', 'fr']
-    BABEL_DEFAULT_LOCALE = 'en'
-    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 # configure the flask app
@@ -32,15 +33,14 @@ def get_locale():
     Returns:
             _type_: _description_
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    """_summary_
-    """
-    return render_template('3-index.html')
+    """_summary_"""
+    return render_template("3-index.html")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port="5000", host="0.0.0.0", debug=True)
